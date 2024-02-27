@@ -2,17 +2,29 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\String\u;
 
 
-class VinylController
+class VinylController extends AbstractController
 {
     #[Route("/")]
     function homepage(): Response
     {
-        return new Response("Bonjour <strong>DSI22G2</strong>!<br><img src='https://besttech.tn/wp-content/uploads/2021/01/formation-symfony.png' width='200'>");
+        $tracks = [
+            ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+            ['song' => 'Waterfalls', 'artist' => 'TLC'],
+            ['song' => 'Creep', 'artist' => 'Radiohead'],
+            ['song' => 'Kiss from a Rose', 'artist' => 'Seal'],
+            ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
+            ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
+        ];
+        return $this->render('vinyl/homepage.html.twig', [
+            'title' => 'ISET Kélibia',
+            'tracks' => $tracks,
+        ]);
     }
     #[Route("/browse/{slug}")]
     function browse(string $slug = null): Response
